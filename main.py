@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 import streamlit as st
 from dotenv import load_dotenv
 from groq import Groq
@@ -58,18 +59,20 @@ def getTechStack(job_description: str):
 
 
 def call_groq(job_description, prompt):
+    msgs: Iterable = [
+        {
+            "role": "system",
+            "content": prompt
+        },
+        {
+            "role": "user",
+            "content": f"Job Description: {job_description}",
+        }
+    ]
+
     return client.chat.completions.create(
         model="meta-llama/llama-4-maverick-17b-128e-instruct",
-        messages=[
-            {
-                "role": "system",
-                "content": prompt
-            },
-            {
-                "role": "user",
-                "content": f"Job Description: {job_description}",
-            }
-        ],
+        messages=msgs,
         temperature=0.5,
     )
 
@@ -96,8 +99,6 @@ with tab1:
     if st.session_state.cover_letter:
         st.markdown("### Cover Letter:")
         st.markdown(st.session_state.cover_letter)
-
-    # Project Ideas
 # Project Ideas
 with tab2:
     if st.button("Generate Project Ideas"):
