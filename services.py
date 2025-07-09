@@ -127,13 +127,19 @@ def summarize_with_groq(code_files):
     # summarize each file separately
     for path, code in code_files:
         prompt = f"""
-        You are an expert software engineer. Here's a file from a GitHub project:
+        You are a senior software engineer and expert code reviewer.
 
-        Code:
-        {code[:3000]}  # Truncate to stay within token limit
+        Below is the content of a single file from a GitHub project:
 
-        Please summarize what this file does in few lines:
-        use emojicons
+        --- BEGIN FILE ---
+        {code[:3000]}
+        --- END FILE ---
+
+        Please provide a clear and concise summary of what this file does.
+
+        - Use bullet points if helpful
+        - Include relevant emojis to make it more engaging (e.g., 🧠, ⚙️, 🔍, ✅)
+        - Keep the explanation developer-friendly and easy to scan
         """
         messages = [{"role": "user", "content": prompt}]
 
