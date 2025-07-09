@@ -135,7 +135,7 @@ def summarize_with_groq(code_files):
         Please summarize what this file does in few lines:
         use emojicons
         """
-        messages=[{"role": "user", "content": prompt}]
+        messages = [{"role": "user", "content": prompt}]
 
         chat_completion = call_groq(messages)
         summary = chat_completion.choices[0].message.content
@@ -147,9 +147,32 @@ def summarize_github_repo(github_repo_link):
     try:
         repo_path = clone_repo(github_repo_link)
         code_files = read_repo_files(repo_path)
-        print(code_files)
         if not code_files:
             return "No readable code files found."
         return summarize_with_groq(code_files)
     except Exception as e:
         return f"❌ Error while summarizing: {str(e)}"
+
+
+def generate_linkedin_post(github_repo_link):
+    final_summary = summarize_github_repo(github_repo_link)
+    prompt = f"""
+        You are an experienced software engineer and a strong technical communicator.
+
+        Below is a high-level summary of the repository’s contents, including an overview of each file:
+        {final_summary}
+
+        Using this context, write a concise and engaging LinkedIn post that highlights:
+        - What the project is and what it does
+        - Why it's useful or interesting
+        - Any key technical highlights or unique aspects
+        - A call to action or invitation to check it out
+        - What all have i learned making this project
+
+        Keep the tone professional yet approachable, suitable for a LinkedIn audience of developers and tech professionals.
+    """
+    messages = [{"role": "user", "content": prompt}]
+    response = call_groq(messages)
+    linkedin_post = response.choices[0].message.content.strip()
+
+    return linkedin_post

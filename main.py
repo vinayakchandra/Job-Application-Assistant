@@ -9,7 +9,8 @@ def init_session_state():
         "job_info": "",
         "tech_stack": "",
         "resume": "",
-        "summarize": ""
+        "summarize": "",
+        "linkedin_post": "",
     }
     for key, value in defaults.items():
         if key not in st.session_state:
