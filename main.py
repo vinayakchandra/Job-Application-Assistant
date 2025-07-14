@@ -1,5 +1,5 @@
 import streamlit as st
-from components import job_assistant, summarize
+from components import job_assistant, summarize, problem_statement
 
 
 def init_session_state():
@@ -11,6 +11,7 @@ def init_session_state():
         "resume": "",
         "summarize": "",
         "linkedin_post": "",
+        "problem_statement_ideas": ""
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -18,7 +19,7 @@ def init_session_state():
 
 
 init_session_state()
-pages = ["🚀Job Application Assistant", "🔍Github"]
+pages = ["🚀Job Application Assistant", "🔍Github", "🤨Problem Statement"]
 
 st.sidebar.title("🧭 Navigation")
 page = st.sidebar.selectbox("Pages", pages)
@@ -27,3 +28,5 @@ if page == "🚀Job Application Assistant":
     job_assistant.render()
 if page == "🔍Github":
     summarize.render()
+if page == "🤨Problem Statement":
+    problem_statement.render()

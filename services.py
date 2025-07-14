@@ -58,6 +58,16 @@ def project_ideas(job_description: str):
     chat_completion = make_msg_from_prompt(job_description, prompt)
     return chat_completion.choices[0].message.content
 
+def generate_ideas_from_problem_statement(problem_statement: str):
+    prompt = (
+        "You are an expert in generating creative, practical, and innovative project ideas based on problem statements. "
+        "For each idea, include a brief title, a short description, and suggest a suitable tech stack (languages, frameworks, tools). "
+        "Enhance each idea with relevant emojis. Do not include any preamble, introductions, or closing statements—only the list of ideas."
+        "Also tell difficulty levels and which is best for submitting for hackathon and tell why in detail"
+    )
+
+    chat_completion = make_msg_from_prompt(problem_statement, prompt)
+    return chat_completion.choices[0].message.content
 
 def job_info(job_description: str):
     prompt = (
