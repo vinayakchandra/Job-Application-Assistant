@@ -160,13 +160,13 @@ def summarize_github_repo(github_repo_link):
         return f"❌ Error while summarizing: {str(e)}"
 
 
-def generate_linkedin_post(github_repo_link):
-    final_summary = summarize_github_repo(github_repo_link)
+def generate_linkedin_post(repoSummary):
+    # repoSummary = summarize_github_repo(github_repo_link)
     prompt = f"""
         You are an experienced software engineer and a strong technical communicator.
 
         Below is a high-level summary of the repository’s contents, including an overview of each file:
-        {final_summary}
+        {repoSummary}
 
         Using this context, write a concise and engaging LinkedIn post that highlights:
         - What the project is and what it does
@@ -176,6 +176,7 @@ def generate_linkedin_post(github_repo_link):
         - What all have i learned making this project
 
         Keep the tone professional yet approachable, suitable for a LinkedIn audience of developers and tech professionals.
+        No preamble.
     """
     messages = [{"role": "user", "content": prompt}]
     response = call_groq(messages)
