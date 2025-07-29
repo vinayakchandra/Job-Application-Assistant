@@ -108,7 +108,7 @@ def clone_repo(repo_url):
 
 def read_repo_files(repo_path, max_files=50):
     code_files = []
-    supported_files = ('.py', '.js', '.ts', '.java', '.cpp', '.md', '.json', '.html', '.css')
+    supported_files = ('.py', '.js', '.ts', '.java', '.cpp', '.md', '.json', '.html', '.css', '.xml')
     ignore_dirs = [".git", "venv", "env", ".env", "node_modules", "__pycache__", ".devcontainer",
                    ".idea", ".vscode", ".github", "dist", "build", "out", "target", ".next", ".turbo",
                    ".pytest_cache", ".mypy_cache", ".tox", ".cache", "logs", ".DS_Store",
